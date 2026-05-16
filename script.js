@@ -61,7 +61,7 @@ class JokesQueue {
     }
 
     async nextJoke() {
-        if (this.position >= this.jokes.length - 1) {
+        if (this.position >= this.total) {
             const joke = await this.jokesRepo.getJoke();
             this.jokes.push(joke);
         }
