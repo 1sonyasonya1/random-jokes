@@ -61,8 +61,8 @@ class JokesQueue {
     }
 
     async nextJoke() {
-        if (this.position >= this.total) {
-            const joke = await this.jokesRepo.getJoke();
+        if (this.position >= this.total - 1) {
+            const joke = await this.jokesRepo.getJoke();    
             this.jokes.push(joke);
         }
         this.position++
@@ -91,10 +91,16 @@ const current = document.querySelector('.footer__text');
 
 
 async function loadJoke() {
-    const joke = await jokesQ.nextJoke();
-    setup.textContent = joke.setup;
-    punchline.textContent = '';
-    current.textContent = `Joke ${jokesQ.current} of ${jokesQ.total}`
+    try{
+        const joke = await jokesQ.nextJoke();
+        setup.textContent = joke.setup;
+        punchline.textContent = '';
+        current.textContent = `Joke ${jokesQ.current} of ${jokesQ.total}`
+    } catch (err) {
+        console.log(err)
+        setup.textContent = 'Guess what?';
+        punchline.textContent = err.message;
+    };
 }
 
 loadJoke();
