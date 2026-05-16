@@ -7,7 +7,7 @@ class JokesBaseError extends Error {
 class HTTPError extends JokesBaseError {
     constructor(response) {
         let message = `HTTP Error. Status code: ${response.status}.`
-        super(+ message)
+        super(message)
     }
 }
 class PrevNotExistError extends JokesBaseError {
